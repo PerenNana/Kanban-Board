@@ -1,0 +1,10 @@
+{{template "head" "Boards"}}
+<h1>📋 Boards</h1>
+<ul>
+  {{range .}}
+    <li><a href="/boards/{{.ID}}">{{.Name}}</a></li>
+  {{else}}
+    <li>Noch keine Boards vorhanden.</li>
+  {{end}}
+</ul>
+{{template "foot"}}

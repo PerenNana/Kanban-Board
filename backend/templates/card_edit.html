@@ -1,0 +1,19 @@
+{{template "head" "Karte bearbeiten"}}
+<p><a href="/boards/{{.BoardID}}">← Zurück zum Board</a></p>
+<h1>✏️ Karte bearbeiten</h1>
+
+<form method="POST" action="/cards/{{.Card.ID}}">
+  <input type="hidden" name="column_id" value="{{.Card.ColumnID}}">
+  <input type="hidden" name="position"  value="{{.Card.Position}}">
+
+  <p><label>Titel<br>
+    <input name="title" value="{{.Card.Title}}" required>
+  </label></p>
+
+  <p><label>Beschreibung<br>
+    <textarea name="description" rows="4">{{.Card.Description}}</textarea>
+  </label></p>
+
+  <button type="submit">💾 Speichern</button>
+</form>
+{{template "foot"}}

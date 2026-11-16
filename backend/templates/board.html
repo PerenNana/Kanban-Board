@@ -1,0 +1,27 @@
+{{template "head" .Board.Name}}
+<p><a href="/">← Alle Boards</a></p>
+<h1>{{.Board.Name}}</h1>
+
+<div class="board">
+  {{range .Columns}}
+    <div class="column">
+      <h2>{{.Column.Name}}</h2>
+      {{range .Cards}}
+        <div class="card">
+          <strong>{{.Title}}</strong>
+          {{if .Description}}<p>{{.Description}}</p>{{end}}
+          <a href="/cards/{{.ID}}/edit">✏️ Bearbeiten</a>
+        </div>
+      {{else}}
+        <p><em>Keine Karten</em></p>
+      {{end}}
+      <form method="POST" action="/cards" class="new-card">
+        <input type="hidden" name="column_id" value="{{.Column.ID}}">
+        <input name="title" placeholder="Neue Karte…" required>
+        <textarea name="description" rows="2" placeholder="Beschreibung (optional)"></textarea>
+        <button type="submit">➕ Hinzufügen</button>
+      </form>
+    </div>
+  {{end}}
+</div>
+{{template "foot"}}
