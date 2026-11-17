@@ -10,12 +10,12 @@ import (
 )
 
 type Server struct {
-	db   *DB
+	db   Store
 	tmpl *template.Template
 }
 
-func NewServer(db *DB) (*Server, error) {
-	tmpl, err := template.ParseGlob("templates/*.html")
+func NewServer(db Store, tmplGlob string) (*Server, error) {
+	tmpl, err := template.ParseGlob(tmplGlob)
 	if err != nil {
 		return nil, err
 	}

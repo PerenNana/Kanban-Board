@@ -1,0 +1,19 @@
+# stages: 
+#   - test
+#   - build
+#   - deploy
+
+
+# unit_tests: 
+#   stage: test
+#   script:
+#     - go test -v ./...
+
+
+# deploy_prod: 
+#   stage: deploy
+#   script: 
+#     - echo "Deploy to production"
+#   rules:
+#     - if: '$CI_COMMIT_REF_NAME == "master"'
+#     - when: manual

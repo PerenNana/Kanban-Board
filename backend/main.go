@@ -26,7 +26,7 @@ func main() {
 	}
 	defer db.Close()
 
-	srv, err := internal.NewServer(db)
+	srv, err := internal.NewServer(db, "templates/*.html")
 	if err != nil {
 		log.Fatalf("templates: %v", err)
 	}
