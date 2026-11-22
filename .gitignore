@@ -1,0 +1,3 @@
+# Go Test-Coverage
+*.out
+coverage.html

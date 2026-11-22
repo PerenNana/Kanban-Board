@@ -48,6 +48,8 @@ func TestGetPages(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			// Testserver mit Mock-Store erstellen
+			// Jeder Testfall erstellt seinen eigenen Server, damit die Tests unabhängig voneinander sind
 			srv, _ := newTestServer(t)
 
 			req := httptest.NewRequest(http.MethodGet, tt.path, nil)
@@ -67,6 +69,7 @@ func TestGetPages(t *testing.T) {
 // --- POST: Karte erstellen ---
 
 func TestCreateCard(t *testing.T) {
+	// Jeder Testfall erstellt seinen eigenen Server, damit die Tests unabhängig voneinander sind
 	srv, store := newTestServer(t)
 
 	rec := postForm(srv, "/cards", url.Values{
@@ -92,6 +95,7 @@ func TestCreateCard(t *testing.T) {
 }
 
 func TestCreateCardEmptyTitle(t *testing.T) {
+	// Jeder Testfall erstellt seinen eigenen Server, damit die Tests unabhängig voneinander sind
 	srv, store := newTestServer(t)
 
 	rec := postForm(srv, "/cards", url.Values{
@@ -110,6 +114,7 @@ func TestCreateCardEmptyTitle(t *testing.T) {
 // --- POST: Karte aktualisieren ---
 
 func TestUpdateCard(t *testing.T) {
+	// Jeder Testfall erstellt seinen eigenen Server, damit die Tests unabhängig voneinander sind
 	srv, store := newTestServer(t)
 
 	rec := postForm(srv, "/cards/1", url.Values{
