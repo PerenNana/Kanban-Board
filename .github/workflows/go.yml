@@ -6,14 +6,15 @@ name: Go
 on:
   push:
     branches: [ "main" ]
+    tags: ['v*']
   pull_request:
     branches: [ "main" ]
 
 jobs:
 
+  # ------------ Build and Test ------------
   build:
     runs-on: ubuntu-latest
-
     defaults: 
       run:
         working-directory: backend
@@ -24,7 +25,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.27'
+        go-version-file: backend/go.mod
         cache-dependency-path: backend/go.sum
 
     - name: Install dependencies
@@ -36,3 +37,34 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+
+
+  # ------------ Release -------------
+  release: 
+    needs: build                              # nur wenn build + test grün sind
+    if: startsWith(github.ref, 'refs/tags/v') # nur bei Tags
+    runs-on: ubuntu-latest
+    permissions: 
+      contents: write                         # nur dieser Job darf schreiben
+
+    steps:
+      - uses: actions/checkout@v4
+        with: 
+          fetch-depth: 0                      # ganze Historie fürs Changelog
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with: 
+          go-version-file: backend/go.mod
+          cache-dependency-path: backend/go.sum
+
+      - name: GoReleaser
+        uses: goreleaser/goreleaser-action@v6
+        with: 
+          distribution: goreleaser
+          version: '~> v2'
+          args: release --clean
+          workdir: backend
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

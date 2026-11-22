@@ -1,0 +1,13 @@
+version: 2
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+
+archives:
+  - files:
+      - "templates/*"
+    formats: ["tar.gz"]
+    format_overrides:
+      - goos: windows
+        formats: ["zip"]
