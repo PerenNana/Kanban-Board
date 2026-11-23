@@ -45,7 +45,6 @@ jobs:
     defaults:
       run: 
         working-directory: frontend           # Hier liegt package.json
-
       steps: 
       - uses: actions/checkout@v4
 
